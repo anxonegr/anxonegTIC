@@ -1,10 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tortilla de Patatas</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link href="styles/style.css" rel="stylesheet" type="text/css">
+    
+    <style>
+        html {
+            font-size: 10px;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        body {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #FFF8DC;
+            padding: 20px;
+            border: 5px solid #8B4513;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.5s;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin: 0;
+            padding: 20px 0;
+            color: #D2691E;
+            text-shadow: 2px 2px 1px black;
+            text-align: center;
+        }
+
+        img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border: 3px solid #8B4513;
+            margin-bottom: 20px;
+        }
+
+        #toggle-info, #toggle-theme {
+            background-color: #D2691E;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        #info-box {
+            display: none;
+            background-color: #FFD700;
+            padding: 20px;
+            border: 2px solid #8B4513;
+            position: absolute;
+            top: 150px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.5s;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            color: #D2691E;
+        }
+
+        .trail {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(210, 105, 30, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: opacity 0.5s;
+            opacity: 0.5;
+        }
+    </style>
 </head>
 <body>
     <h1>Tortilla de Patatas de Anxo</h1>
@@ -17,6 +96,44 @@
         <h2>Beneficios</h2>
         <p>La tortilla de patatas es una fuente excelente de proteínas gracias a los huevos. Las patatas aportan carbohidratos complejos, fibra y vitaminas, mientras que el aceite de oliva usado en su preparación añade grasas saludables.</p>
     </div>
-    <script src="scripts/main.js"></script>
+
+    <script>
+        // Código para mostrar/ocultar la pestaña flotante con animación
+        document.getElementById('toggle-info').addEventListener('click', function() {
+            let infoBox = document.getElementById('info-box');
+            if (infoBox.style.opacity === '0' || infoBox.style.opacity === '') {
+                infoBox.style.display = 'block';
+                setTimeout(() => { infoBox.style.opacity = '1'; }, 10);
+            } else {
+                infoBox.style.opacity = '0';
+                setTimeout(() => { infoBox.style.display = 'none'; }, 500);
+            }
+        });
+
+        // Código para cambiar el tema de la página
+        document.getElementById('toggle-theme').addEventListener('click', function() {
+            let body = document.body;
+            if (body.style.backgroundColor === 'rgb(255, 248, 220)') {
+                body.style.backgroundColor = '#2F4F4F';
+                body.style.color = '#FFF8DC';
+            } else {
+                body.style.backgroundColor = '#FFF8DC';
+                body.style.color = '#000000';
+            }
+        });
+
+        // Código para la estela del ratón
+        document.addEventListener('mousemove', function(e) {
+            let trail = document.createElement('div');
+            trail.classList.add('trail');
+            trail.style.left = e.pageX + 'px';
+            trail.style.top = e.pageY + 'px';
+            document.body.appendChild(trail);
+
+            setTimeout(() => {
+                trail.remove();
+            }, 500);
+        });
+    </script>
 </body>
 </html>
